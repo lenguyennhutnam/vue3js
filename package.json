@@ -9,14 +9,22 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "vis-data": "^7.1.7",
+    "vis-network": "^9.1.8",
+    "vis-util": "^5.0.5",
+    "vue": "^3.2.13",
+    "vue-vis-network": "^1.0.2",
+    "vuetify": "^3.3.22"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@mdi/font": "^7.3.67",
+    "@mdi/js": "^7.3.67",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "css-loader": "^6.8.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",

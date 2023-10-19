@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Preventing Document Click</title>
+</head>
+<body>
+  <button id="myButton">Click Me First</button>
+
+  <script>
+    // Function to execute when both events have occurred
+    function bothEventsOccurred() {
+      console.log('Button clicked, and then screen clicked!');
+      // Add your desired actions here
+    }
+
+    const button = document.getElementById('myButton');
+
+    // Flag to track whether the button has been clicked
+    let buttonClicked = false;
+
+    // Event listener for the button click
+    button.addEventListener('click', (event) => {
+      buttonClicked = true;
+      // Prevent event propagation to the document
+      event.stopPropagation();
+    });
+
+    // Event listener for the screen click
+    document.addEventListener('click', (event) => {
+      if (buttonClicked) {
+        bothEventsOccurred();
+        buttonClicked = false; // Reset the flag
+      }
+    });
+  </script>
+</body>
+</html>
