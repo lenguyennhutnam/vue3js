@@ -18,6 +18,7 @@ const vuetify = createVuetify;
 // Event bus
 import mitt from "mitt";
 const eventBus = mitt();
+
 app.config.globalProperties.eventBus = eventBus;
 app.config.globalProperties.vis = vis;
 app.use(vuetify).mount("#app");

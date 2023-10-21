@@ -1,15 +1,14 @@
 <template>
-  <!-- <v-toolbar>
-    <add-btn device="Add Host" :active="true" icon="mdi-laptop"></add-btn>
-    <add-btn device="Add Switch" icon="mdi-switch"></add-btn>
-    <add-btn device="Add Edges" icon="mdi-link-variant"></add-btn>
-  </v-toolbar> -->
-  <button-list />
-  <div id="canvas"></div>
+  <div class="canvasbox">
+    <button-list ref="btnList" />
+    <div id="canvas"></div>
+  </div>
 </template>
 
 <script>
-import ButtonList from "./ButtonList.vue";
+import ButtonList from "./BtnList.vue";
+import { option } from "@/components/canvas/builder/option";
+
 export default {
   components: { ButtonList },
   name: "CanVas",
@@ -19,23 +18,26 @@ export default {
       nodes: null,
       edges: null,
       container: null,
-      options: null,
       network: null,
-      adding: {
-        host: false,
-        switch: false,
+      adding: null,
+      itemList: {
+        Host: 0,
+        Switch: 0,
       },
     };
   },
   mounted() {
     this.init();
   },
+
+  // =================================================================
+
   methods: {
     init() {
       this.nodes = new this.vis.DataSet([
-        { id: 1, label: "Earth" },
-        { id: 2, label: "Sun" },
-        { id: 3, label: "Moon" },
+        { id: 1, label: "Host 1", group: "Host" },
+        { id: 2, label: "Switch 1", group: "Switch" },
+        { id: 3, label: "Host 2", group: "Host" },
       ]);
 
       this.container = document.getElementById("canvas");
@@ -50,43 +52,53 @@ export default {
         edges: this.edges,
       };
 
-      this.options = {
-        nodes: {},
-        interaction: {
-          hover: true,
-          hoverConnectedEdges: true,
-        },
-      };
+      this.network = new this.vis.Network(this.container, this.data, option);
 
-      this.network = new this.vis.Network(
-        this.container,
-        this.data,
-        this.options
-      );
-      this.eventBus.on("click", () => {
-        console.log("Da bam nut");
-        // this.network.once("click", this.addItem);
-        console.log(222);
+      // =================================================================
+
+      this.network.on("selectNode	", () => {
+        console.log("Node");
+      });
+
+      this.eventBus.on("addHost", () => {
+        this.adding = "Host";
+        this.network.once("click", this.addItem);
+      });
+      this.eventBus.on("addSwitch", () => {
+        this.adding = "Switch";
+        this.network.once("click", this.addItem);
+      });
+      this.eventBus.on("addEdge", () => {
+        this.adding = "Edge";
+        this.network.once("click", this.addItem);
       });
     },
-    // clickNode(property) {
-    //   console.log(property);
-    // },
-    // hoverNode() {
-    //   console.log(1);
-    // },
-    // addItem(e) {
-    //   var clickX = e.pointer.canvas.x;
-    //   var clickY = e.pointer.canvas.y;
+    addItem(e) {
+      let clickX = e.pointer.canvas.x;
+      let clickY = e.pointer.canvas.y;
+      let idToRef = {
+        Host: this.$refs.btnList.$refs.host,
+        Switch: this.$refs.btnList.$refs.switch,
+        Edge: this.$refs.btnList.$refs.edge,
+      };
+      let nodeType = this.adding;
+      if (idToRef[nodeType].isActive) {
+        // Define new node
+        let newnode = {
+          id: this.nodes.length + 1,
+          label: `${nodeType} ` + `${++this.itemList[nodeType]}`,
+          group: nodeType,
+          x: clickX,
+          y: clickY,
+        };
 
-    //   // Add a new node at the clicked coordinates
-    //   this.nodes.add({
-    //     id: this.nodes.length + 1,
-    //     label: "node " + `${this.nodes.length + 1}`,
-    //     x: clickX,
-    //     y: clickY,
-    //   });
-    // },
+        // Off clicked button
+        idToRef[nodeType].isActive = false;
+
+        // Add node to canvas
+        this.nodes.add(newnode);
+      }
+    },
   },
 };
 </script>
@@ -94,8 +106,8 @@ export default {
 <style scoped>
 #canvas {
   display: block;
-  width: 500px;
-  height: 500px;
+  width: 1000px;
+  height: 600px;
   background-color: #ccc;
 }
 </style>
