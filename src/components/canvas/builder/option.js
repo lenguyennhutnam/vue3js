@@ -17,6 +17,13 @@ const color = {
 };
 
 export const option = {
+  manipulation: {
+    enabled: false,
+    addEdge: function (edgeData, callback) {
+      callback(edgeData);
+      console.log("haha");
+    },
+  },
   physics: {
     enabled: false,
   },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="button-list">
     <add-btn ref="host" id="host" @click="activeHost"></add-btn>
     <add-btn ref="switch" id="switch" @click="acitveSwitch"></add-btn>
     <add-btn ref="edge" id="edge" @click="acitveEdge"></add-btn>
@@ -9,15 +9,14 @@
 <script>
 import AddBtn from "./AddBtn.vue";
 export default {
-  name: "ButtonList",
+  name: "BtnList",
   components: {
     AddBtn,
   },
   data() {
-    return {
-      name: "ButtonList",
-    };
+    return {};
   },
+  mounted() {},
   methods: {
     acitveBtn(ref) {
       let lastState = ref.isActive;
@@ -42,4 +41,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.button-list {
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+}
+</style>

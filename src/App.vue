@@ -1,33 +1,32 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App" />
-  <button-list /> -->
-  <!-- <CanvasTq></CanvasTq> -->
-
-  <CanVas></CanVas>
+  <!-- <Canvas @ready="clickBtn"></Canvas>
+  <v-btn id="btn">Click</v-btn> -->
+  <main-page></main-page>
 </template>
 
 <script>
-// import CanvasTq from "./components/CanvasTq.vue";
-import CanVas from "./components/canvas/CanVas.vue";
-// import AddBtn from "./components/AddBtn.vue";
-// import Message from "./components/Message.vue";
+// import Canvas from "./components/canvas/Canvas.vue";
+import MainPage from "./components/canvas/MainPage.vue";
 
 export default {
   name: "App",
   components: {
-    // HelloWorld,
-    // CanvasTq,
-    CanVas,
-    // AddBtn,
-    // Message,
+    // Canvas,
+    MainPage,
   },
   data() {
     return {
       isShow: false,
     };
   },
-  methods: {},
+  methods: {
+    clickBtn(a) {
+      console.log(a.container);
+      console.log(a.net);
+      console.log(a.nodes);
+      console.log(a.edges);
+    },
+  },
 };
 </script>
 

@@ -3,6 +3,7 @@
     color="background"
     :id="id"
     :class="id"
+    class="add-btn"
     :icon="icon"
     :active="isActive"
     @click="clickBtn"
@@ -26,7 +27,7 @@ export default {
       images: {
         host: "mdi-laptop",
         switch: "mdi-switch",
-        edge: "mdi-link-variant",
+        edge: "mdi-transit-connection-variant",
       },
       isActive: false,
     };
@@ -43,11 +44,9 @@ export default {
 </script>
 
 <style scoped>
-/* .addBtn {
-  margin-right: 10px;
+.add-btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
   background-color: #ccc;
-} */
-/* .addBtn:focus {
-  background-color: rgb(135, 135, 146);
-} */
+}
 </style>
